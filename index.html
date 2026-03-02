@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام ولاء العملاء</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        button { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="customerName">جاري القراءة...</h2>
+    <p>عدد نقاطك الحالية:</p>
+    <h1 id="points">0</h1>
+    <button onclick="addPoint()">إضافة نقطة +</button>
+</div>
+
+<script>
+    // 1. الحصول على رقم الكرت من الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerId = urlParams.get('id') || "guest";
+
+    // 2. تحميل البيانات المخزنة أو إنشاؤها
+    let points = localStorage.getItem('points_' + customerId) || 0;
+    document.getElementById('points').innerText = points;
+    document.getElementById('customerName').innerText = "عميل رقم: " + customerId;
+
+    // 3. وظيفة زيادة النقاط
+    function addPoint() {
+        points++;
+        localStorage.setItem('points_' + customerId, points);
+        document.getElementById('points').innerText = points;
+        alert("تم إضافة نقطة بنجاح!");
+    }
+</script>
+</body>
+</html>
